@@ -66,10 +66,10 @@ export default class Home extends React.Component {
 		super();
 		this.state = {
 			isVisibleLocation: false,
-			personCategory: [{ id: 1, name: "Him", image:require("../../assets/img/men-1.png")},
-			{ id: 2, name: "Her", image:require("../../assets/img/female.png") },
-			{ id: 3, name: "Newly Wed", image:require("../../assets/img/newly-weds.png") },
-			{ id: 4, name: "Kids", image:require("../../assets/img/children.png"), },],
+			personCategory: [{ id: 1, name: "Him", image: require("../../assets/img/men-1.png") },
+			{ id: 2, name: "Her", image: require("../../assets/img/female.png") },
+			{ id: 3, name: "Newly Wed", image: require("../../assets/img/newly-weds.png") },
+			{ id: 4, name: "Kids", image: require("../../assets/img/children.png"), },],
 			plantDetails: [{ id: 1, plant: "Our Plant separate page", discount: "flat 15% discount" },
 			{ id: 2, plant: "Vatality Tips", discount: "flat 30% discount" },
 			{ id: 3, plant: "Our Plant separate page", discount: "flat 45% discount" },
@@ -186,8 +186,8 @@ export default class Home extends React.Component {
 							paddingLeft: scale(15),
 							paddingRight: scale(15),
 						}}>
-						<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-							<Image
+						{/* <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+							 <Image
 								source={require('../../assets/img/vita1.png')}
 								style={{
 									width: scale(30),
@@ -195,13 +195,36 @@ export default class Home extends React.Component {
 									marginTop: scale(-5),
 								}}
 								resizeMode="cover"
-							/>
-							<Image
+							/> 
+						 <Image
 								source={require('../../assets/img/vita2.png')}
 								style={{ width: scale(100), height: scale(30) }}
 								resizeMode="cover"
-							/>
+							/> 
+						</View> */}
+						<View
+							style={{
+								flexDirection: 'row',
+								// paddingLeft: scale(15),
+								paddingRight: scale(15),
+								paddingBottom: scale(5),
+							}}>
+							<Text style={{ flexDirection: 'row', color: '#666666' }}>
+								Deliver To
+							</Text>
+							<TouchableOpacity
+								style={{ flexDirection: 'row' }}
+								onPress={() => {
+									this.setState({ isVisibleLocation: true });
+								}}>
+								<Text
+									style={{ fontWeight: 'bold', paddingLeft: 5, paddingRight: 2 }}>
+									Deliver To
+								</Text>
+								<Icon1 name="angle-down" size={24} color="#54525D" />
+							</TouchableOpacity>
 						</View>
+
 						<View>
 							<IconBtn
 								icon={'shopping-cart'}
@@ -209,28 +232,6 @@ export default class Home extends React.Component {
 								badge={2}
 							/>
 						</View>
-					</View>
-					<View
-						style={{
-							flexDirection: 'row',
-							paddingLeft: scale(15),
-							paddingRight: scale(15),
-							paddingBottom: scale(5),
-						}}>
-						<Text style={{ flexDirection: 'row', color: '#666666' }}>
-							Deliver To
-						</Text>
-						<TouchableOpacity
-							style={{ flexDirection: 'row' }}
-							onPress={() => {
-								this.setState({ isVisibleLocation: true });
-							}}>
-							<Text
-								style={{ fontWeight: 'bold', paddingLeft: 5, paddingRight: 2 }}>
-								Deliver To
-							</Text>
-							<Icon1 name="angle-down" size={24} color="#54525D" />
-						</TouchableOpacity>
 					</View>
 					<View
 						style={[
@@ -264,10 +265,7 @@ export default class Home extends React.Component {
 						</View>
 					</View>
 				</View>
-				<Header style={{ marginBottom: 20, width: '100%' }}>
-					<View></View>
-				</Header>
-
+				<Header style={{ marginBottom: 20, width: '100%' }} />
 				<Container>
 					<Carousel
 						data={sample_data.homeBanner}
@@ -289,9 +287,9 @@ export default class Home extends React.Component {
 							{this.state.personCategory.map((item, index) => {
 								return (
 									<PersonCard
-									item={item}
-
-									image={item.image}
+										item={item}
+										key={index}
+										image={item.image}
 										Name={item.name}
 										style={{ marginVertical: 3, marginHorizontal: 5 }}
 									/>
@@ -364,7 +362,7 @@ export default class Home extends React.Component {
 							{this.state.plantDetails.map((item, index) => {
 								return (
 									<View
-									key={index}
+										key={index}
 										style={{
 											shadowOffset: {
 												width: 0,
