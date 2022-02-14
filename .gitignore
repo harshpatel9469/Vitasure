@@ -1,7 +1,5 @@
 # OSX
 #
-#dependencies
-node_modules
 .DS_Store
 
 # Xcode
@@ -22,10 +20,19 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
- 
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
 
 # node.js
 #
+node_modules
 node_modules/
 npm-debug.log
 yarn-error.log
