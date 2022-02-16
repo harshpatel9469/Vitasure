@@ -383,9 +383,9 @@ export default class Home extends React.Component {
                 flexDirection: 'row',
                 padding: 4,
               }}
+              onPress={()=>this.props.navigation.navigate("Membership")}
               activeOpacity={0}>
               <Text style={{color: '#fff', fontSize: 13, fontWeight: 'bold'}}>
-                {' '}
                 {'Start Collection'}
               </Text>
               <EntypoIcon

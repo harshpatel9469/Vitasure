@@ -21,6 +21,7 @@
  import Address from './screens/Address';
  import Payment from './screens/Payment';
  import ThankYou from './screens/ThankYou';
+ import Membership from './screens/Membership';
  import Cart from './screens/Cart';
  import Settings from './screens/Settings';
  import ProductDetail from './screens/ProductDetail';
@@ -79,6 +80,7 @@
          <Stack.Screen name="OrderDetail" component={OrderDetail} />
          <Stack.Screen name="EditProfile" component={EditProfile} />
          <Stack.Screen name="OurPlant" component={OurPlant} />
+         <Stack.Screen name="Membership" component={Membership} />
          <Stack.Screen name="PlantDescription" component={PlantDescription} />
        </Stack.Navigator>
      </NavigationContainer>
