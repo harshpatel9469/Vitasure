@@ -9,8 +9,17 @@ import {
   View,
 } from 'react-native';
 
-import {Wrapper, Container, Space, H3, P, Btn, Checkbox} from '../utils';
-import IonIcon from 'react-native-vector-icons/dist/Ionicons';
+import {
+  Wrapper,
+  Container,
+  Space,
+  H3,
+  P,
+  Btn,
+  Checkbox,
+  IconBtn,
+} from '../utils';
+import AntDesignIcon from 'react-native-vector-icons/dist/AntDesign';
 import {scale} from 'react-native-size-matters';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {Colors} from '../Constant';
@@ -19,7 +28,7 @@ import {Pagination} from 'react-native-snap-carousel';
 
 import config from '../../config';
 import style from '../../style';
-const {width,height} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 import sample_data from '../../sample_data';
 export default class MemberShip extends React.Component {
   constructor() {
@@ -112,12 +121,280 @@ export default class MemberShip extends React.Component {
   };
   render() {
     return (
-      <View
-        style={{flex: 1, backgroundColor: Colors.white, alignItems: 'center'}}>
-        <ScrollView>
+      <View style={{backgroundColor:"rgba(255,255,255,0.7)",}}>
+        <ScrollView bounces={false}  >
+          <View>
+            <Image
+              source={require('../../assets/img/membershipBg.png')}
+              style={{height: scale(520), width: scale(350)}}
+            />
+            <View
+              style={{
+                position: 'absolute',
+                width: scale(350),
+                paddingHorizontal: scale(10),
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginTop: scale(20),
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <View style={{flexDirection: 'row'}}>
+                  <Image
+                    source={require('../../assets/img/vita1.png')}
+                    style={{
+                      width: scale(30),
+                      height: scale(30),
+                      marginTop: scale(-5),
+                    }}
+                    resizeMode="cover"
+                  />
+                  <Image
+                    source={require('../../assets/img/vita2.png')}
+                    style={{width: scale(100), height: scale(30)}}
+                    resizeMode="cover"
+                  />
+                </View>
+                <View
+                  style={{
+                    backgroundColor: 'rgba(255,255,255,0.5)',
+                    borderRadius: scale(10),
+                    marginHorizontal: scale(5),
+                    padding: scale(3),
+                  }}>
+                  <AntDesignIcon
+                    name={'close'}
+                    size={scale(13)}
+                    color={Colors.primary}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  height: scale(60),
+                  backgroundColor: '#f4f4f4',
+                  width: '100%',
+                  marginVertical: scale(15),
+                  borderRadius: scale(5),
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                  paddingStart: scale(15),
+                }}>
+                <Text
+                  style={{
+                    color: Colors.primary,
+                    fontSize: scale(16),
+                    fontWeight: '700',
+                  }}>
+                  Enjoy benifit worth $4440
+                </Text>
+              </View>
+              <Text
+                style={{
+                  color: Colors.white,
+                  fontWeight: '500',
+                  fontSize: scale(15),
+                }}>
+                Get exclusive access to
+              </Text>
+              <View
+                style={{
+                  backgroundColor: Colors.white,
+                  width: '100%',
+                  marginVertical: scale(15),
+                  borderRadius: scale(5),
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
+                  padding: scale(15),   shadowColor: '#171717',
+                  shadowOffset: {width: -2, height: 4},
+                  shadowOpacity: 0.2,
+                  shadowRadius: 3,
+                  
+                }}>
+                <View
+                  style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginVertical: scale(10),
+                  }}>
+                  <Image
+                    source={require('../../assets/img/empty-cart.png')}
+                    style={{
+                      height: scale(40),
+                      width: scale(60),
+                      resizeMode: 'contain',
+                    }}
+                  />
+                  <View style={{width: '80%'}}>
+                    <Text
+                      style={{
+                        color: '#000',
+                        fontSize: scale(13),
+                        fontWeight: 'bold',
+                      }}>
+                      5% Extra Cashback
+                    </Text>
+                    <Text
+                      style={{
+                        color: Colors.darkGray,
+                        fontSize: scale(11),
+                        fontWeight: '100',
+                      }}>
+                      {'Applicable on medicine & healthcare orders'}
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginVertical: scale(10),
+                  }}>
+                  <Image
+                    source={require('../../assets/img/empty-cart.png')}
+                    style={{
+                      height: scale(40),
+                      width: scale(60),
+                      resizeMode: 'contain',
+                    }}
+                  />
+                  <View style={{width: '80%'}}>
+                    <Text
+                      style={{
+                        color: '#000',
+                        fontSize: scale(13),
+                        fontWeight: 'bold',
+                      }}>
+                      FREE Delivery
+                    </Text>
+                    <Text
+                      style={{
+                        color: Colors.darkGray,
+                        fontSize: scale(11),
+                        fontWeight: '100',
+                        width: scale(200),
+                      }}>
+                      {
+                        'Enjoy free delivery on medicine and healthcare orders above $199'
+                      }
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginVertical: scale(10),
+                  }}>
+                  <Image
+                    source={require('../../assets/img/empty-cart.png')}
+                    style={{
+                      height: scale(40),
+                      width: scale(60),
+                      resizeMode: 'contain',
+                    }}
+                  />
+                  <View style={{width: '80%'}}>
+                    <Text
+                      style={{
+                        color: '#000',
+                        fontSize: scale(13),
+                        fontWeight: 'bold',
+                      }}>
+                      10% Extra Cashback
+                    </Text>
+                    <Text
+                      style={{
+                        color: Colors.darkGray,
+                        fontSize: scale(11),
+                        fontWeight: '100',
+                      }}>
+                      {'Applicable on diagnostic tests'}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{marginTop: scale(15)}}>
+                  <Text
+                    style={{
+                      color: '#606060',
+                      fontSize: scale(11),
+                      fontWeight: 'bold',
+                    }}>
+                    Additional Benifits
+                  </Text>
+                  <View
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginVertical: scale(5),
+                      paddingHorizontal: scale(15),
+                    }}>
+                    <View
+                      style={{
+                        width: '100%',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginVertical: scale(10),
+                      }}>
+                      <Image
+                        source={require('../../assets/img/empty-cart.png')}
+                        style={{
+                          height: scale(20),
+                          width: scale(30),
+                          resizeMode: 'contain',
+                        }}
+                      />
+                      <Text
+                        style={{
+                          color: '#606060',
+                          fontSize: scale(13),
+                          fontWeight: 'bold',
+                          paddingStart: scale(13),
+                        }}>
+                        Zero Convenience Fees
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        width: '100%',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginVertical: scale(10),
+                      }}>
+                      <Image
+                        source={require('../../assets/img/empty-cart.png')}
+                        style={{
+                          height: scale(20),
+                          width: scale(30),
+                          resizeMode: 'contain',
+                        }}
+                      />
+                      <Text
+                        style={{
+                          color: '#606060',
+                          fontSize: scale(13),
+                          fontWeight: 'bold',
+                          paddingStart: scale(13),
+                        }}>
+                        Fees Doctor Teleconsultation
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
           <View
             style={{
-              minHeight: scale(height-60),
+               paddingHorizontal:scale(15)
             }}>
             <View style={{width: '100%'}}>
               <Text
@@ -131,28 +408,27 @@ export default class MemberShip extends React.Component {
 
               <View
                 style={{
-                  width: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  width: '100%', 
                 }}>
                 <View
                   style={{
                     borderWidth: 1,
-                    width: scale(310),
+                    width: "100%",
                     height: scale(35),
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     paddingHorizontal: scale(5),
-                    marginVertical:scale(5)
+                    marginVertical: scale(5),
+                    borderRadius:scale(5)
                   }}>
                   <Checkbox style />
                   <Text style={{paddingHorizontal: scale(5)}}>3 Months</Text>
                   <Text
-                    style={{ 
+                    style={{
                       textDecorationLine: 'line-through',
-                      width:scale(100),
-                      textAlign:"right"
+                      width: scale(100),
+                      textAlign: 'right',
                     }}>
                     $99
                   </Text>
@@ -182,21 +458,22 @@ export default class MemberShip extends React.Component {
                 <View
                   style={{
                     borderWidth: 1,
-                    width: scale(310),
+                    width: "100%",
                     height: scale(35),
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     paddingHorizontal: scale(5),
-                    marginVertical:scale(5)
+                    marginVertical: scale(5),
+                    borderRadius:scale(5)
                   }}>
                   <Checkbox style />
-                  <Text style={{paddingHorizontal: scale(5)}}>6  Months</Text>
+                  <Text style={{paddingHorizontal: scale(5)}}>6 Months</Text>
                   <Text
-                    style={{ 
+                    style={{
                       textDecorationLine: 'line-through',
-                      width:scale(100),
-                      textAlign:"right"
+                      width: scale(100),
+                      textAlign: 'right',
                     }}>
                     $99
                   </Text>
@@ -359,8 +636,11 @@ export default class MemberShip extends React.Component {
               </Text>
             </View>
           </View>
+          <View style={{paddingBottom: scale(100)}} />
         </ScrollView>
 
+     
+    
         <View
           style={{
             position: 'absolute',
@@ -386,7 +666,6 @@ export default class MemberShip extends React.Component {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{paddingBottom:scale(100)}}/>
       </View>
     );
   }

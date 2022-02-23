@@ -300,7 +300,7 @@ export default class Home extends React.Component {
               containerStyle={{
                 position: 'absolute',
                 bottom: -25,
-                left: 100,
+                left: scale(80),
               }}
               dotStyle={{
                 width: 10,
