@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ReactStore.iml" filepath="$PROJECT_DIR$/.idea/modules/ReactStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ReactStore.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ReactStore.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1118839808/ReactStore.react-native-async-storage_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-1118839808/ReactStore.react-native-async-storage_async-storage.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-64930668/ReactStore.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/-64930668/ReactStore.react-native-community_masked-view.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1688258243/ReactStore.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/1688258243/ReactStore.react-native-gesture-handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1986757931/ReactStore.react-native-linear-gradient.iml" filepath="$PROJECT_DIR$/.idea/modules/-1986757931/ReactStore.react-native-linear-gradient.iml" />
