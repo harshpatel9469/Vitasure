@@ -29,7 +29,7 @@ export default class Home extends React.Component {
 	render() {
 
 		return (
-			<View style={{ justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#e7abc3" }}>
+			<View style={{ justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#eb6199" }}>
 				<Image source={require('../../assets/img/vita1.png')} style={{ width: "80%", resizeMode: "contain" }} />
 				<Image source={require('../../assets/img/vita2.png')} style={{ width: "50%", height: 80 ,resizeMode:"contain"}} />
 			</View>

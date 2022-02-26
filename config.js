@@ -1,6 +1,6 @@
 import {Platform} from 'react-native';
 
-const $primaryColor = '#e7abc3';
+const $primaryColor = '#eb6199';
 const $secondaryColor = '#c2185b';
 const $lightColor = '#607d8b';
 const $warningColor = '#d32f2f';
@@ -14,7 +14,7 @@ export default {
   defaultFont: Platform.OS == 'android' ? 'OpenSansRegular' : 'helvetica',
   defaultFontSize: Platform.OS == 'ios' ? 16 : 14,
   layoutMode: $layout,
-  backgroundColor: $layout == 'dark' ? '#222222' : '#adadad',
+  backgroundColor: $layout == 'dark' ? '#222222' : '#fff',
   listBackgroundColor: $layout == 'dark' ? '#111111' : '#ffffff',
   listSeparatorColor: $layout == 'dark' ? '#222222' : '#eeeeee',
   tabBarColor: $layout == 'dark' ? '#111111' : '#fffffff',
