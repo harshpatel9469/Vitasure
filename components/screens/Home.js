@@ -674,3 +674,4 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create(style.home);
+
