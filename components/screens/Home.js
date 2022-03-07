@@ -37,6 +37,7 @@ import {
   IconBtn,
 } from '../utils';
 import {scale} from 'react-native-size-matters';
+import {connect} from 'react-redux';
 
 const {width} = Dimensions.get('window');
 const stylesnew = StyleSheet.create({
@@ -63,7 +64,7 @@ const stylesnew = StyleSheet.create({
   },
 });
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -109,7 +110,11 @@ export default class Home extends React.Component {
     featuredProducts: [],
     favoriteProducts: [],
   };
+  componentDidMount() {
+    this.props.getProduct();
+console.log(this.props,"----------");
 
+  }
   goToProduct(item) {
     this.props.navigation.navigate('ProductDetail', {product: item});
   }
@@ -190,7 +195,8 @@ export default class Home extends React.Component {
       </TouchableOpacity>
     );
   };
-
+  
+ 
   render() {
     return (
       <Wrapper>
@@ -383,7 +389,7 @@ export default class Home extends React.Component {
                 flexDirection: 'row',
                 padding: 4,
               }}
-              onPress={()=>this.props.navigation.navigate("Membership")}
+              onPress={() => this.props.navigation.navigate('Membership')}
               activeOpacity={0}>
               <Text style={{color: '#fff', fontSize: 13, fontWeight: 'bold'}}>
                 {'Start Collection'}
@@ -672,5 +678,12 @@ export default class Home extends React.Component {
     );
   }
 }
-
+export default connect(
+  (state) => ({
+    allProducts: state.product?.allProduct,
+  }),
+  (dispatch) => ({
+    getProduct: dispatch.product.getProducts,
+  }),
+)(Home);
 const styles = StyleSheet.create(style.home);
