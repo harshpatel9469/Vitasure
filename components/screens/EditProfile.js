@@ -580,8 +580,6 @@
 // export default EditProfile;
 
 import React, { Component, useState } from "react";
-
-
 import { TouchableOpacity, ScrollView, Image, TextInput, StyleSheet, Text, View, } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import { Wrapper, Header, Left, Container, Right, Space, Row, Column, Touchable, H1, P, H4, Footer, Sm, Center, Btn, IconBtn } from '../utils';
@@ -598,31 +596,6 @@ const CityPlaceHolder = {
 	value: null,
 	color: 'gray',
 };
-// 			ProfileImgUrl: '',
-// 			profilearr: [
-// 				{ name: "Martha Banks", suggest: "Gold Member", key: 0 },],
-// 			settingarr: [
-
-// 				{ title: "Phone number", subtitle: "584-490-9153" },
-// 				{ title: "Email", subtitle: "freeslab88@gmail.com" },
-// 				{ title: "Gender", subtitle: "Female" },
-// 				{ title: "Birthday", subtitle: "April 16, 1988 " }
-// 			],
-// 			driverId: '',
-// 			isSpinner: false,
-// 			dCompanyId: '',
-// 			driverName: '',
-// 			driverEmail: '',
-// 			driverPhone: '',
-// 			driverAddress: '',
-// 			driverTaxi_permit_number: '',
-// 			driverPolicy_number: '',
-// 			dInsurance_companyname: '',
-// 			dInsurance_companynumber: '',
-// 			driverDetails: [],
-// 			dExpirationDate: '',
-// 			driverStatus: '',
-// 			driverCompanyDetails: [],
 const EditProfile = (props) =>{
 	const [ProfileImgUrl,setProfileImgUrl] = useState('')
 	const [driverName,setDriverName]= useState('')
