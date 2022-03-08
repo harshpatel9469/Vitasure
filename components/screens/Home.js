@@ -83,12 +83,14 @@ export default class Home extends React.Component {
           id: 1,
           plant: 'Our Plant separate page',
           discount: 'flat 15% discount',
+          screenName:'OurPlant',
         },
-        {id: 2, plant: 'Vatality Tips', discount: 'flat 30% discount'},
+        {id: 2, plant: 'Vatality Tips', discount: 'flat 30% discount', screenName:'VatalityTips',},
         {
           id: 3,
           plant: 'Our Plant separate page',
           discount: 'flat 45% discount',
+          screenName:'Home',
         },
       ],
       activeSlide: 0,
@@ -194,7 +196,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <Wrapper>
-        <View style={{backgroundColor: '#e7abc3'}}>
+        <View style={{backgroundColor: '#eb6199'}}>
           <View
             style={{
               flexDirection: 'row',
@@ -306,7 +308,7 @@ export default class Home extends React.Component {
                 width: 10,
                 height: 10,
                 borderRadius: 5,
-                backgroundColor: '#e7abc3',
+                backgroundColor: '#eb6199',
               }}
               inactiveDotStyle={{
                 backgroundColor: '#fff',
@@ -369,7 +371,7 @@ export default class Home extends React.Component {
                 position: 'absolute',
                 left: 20,
                 bottom: -10,
-                backgroundColor: '#e7abc3',
+                backgroundColor: '#eb6199',
                 shadowColor: '#999',
                 shadowOffset: {
                   width: 0,
@@ -415,7 +417,7 @@ export default class Home extends React.Component {
                 width: 10,
                 height: 10,
                 borderRadius: 5,
-                backgroundColor: '#e7abc3',
+                backgroundColor: '#eb6199',
               }}
               inactiveDotStyle={{
                 backgroundColor: '#fff',
@@ -442,7 +444,7 @@ export default class Home extends React.Component {
                       marginHorizontal: 3,
                     }}>
                     <LinearGradient
-                      colors={['#e7abc3', '#fff']}
+                      colors={['#eb6199', '#fff']}
                       style={{
                         width: 140,
                         height: 160,
@@ -477,7 +479,7 @@ export default class Home extends React.Component {
                           backgroundColor: '#F2E34C',
                         }}
                         onPress={() => {
-                          this.props.navigation.navigate('OurPlant');
+                          this.props.navigation.navigate(item.screenName);
                         }}>
                         <EntypoIcon
                           name="chevron-right"
@@ -539,11 +541,11 @@ export default class Home extends React.Component {
               }}>
               <View
                 style={{
-                  margin: 20,
-                  height: '80%',
-                  width: '90%',
+                  // margin: 20,
+                  height: '100%',
+                  width: '100%',
                   backgroundColor: 'white',
-                  borderRadius: 20,
+                  // borderRadius: 20,
                   padding: 35,
 
                   shadowColor: '#000',
@@ -598,7 +600,7 @@ export default class Home extends React.Component {
                       placeholderTextColor={'#999999'}
                       style={{
                         borderWidth: 1,
-                        borderColor: '#D82B7F',
+                        borderColor: '#eb6199',
                         padding: scale(5),
                       }}
                       onChangeText={(text) => this.setState({q: text})}
@@ -613,7 +615,7 @@ export default class Home extends React.Component {
                   <View
                     style={{
                       flex: 0.3,
-                      backgroundColor: '#D82B7F',
+                      backgroundColor: '#eb6199',
                       alignItems: 'center',
                     }}>
                     <TouchableOpacity
@@ -630,11 +632,11 @@ export default class Home extends React.Component {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <Icon2 name="my-location" size={24} color="#D82B7F" />
+                  <Icon2 name="my-location" size={24} color="#eb6199" />
                   <Text
                     style={{
                       textAlign: 'center',
-                      color: '#D82B7F',
+                      color: '#eb6199',
                       paddingHorizontal: scale(5),
                     }}>
                     Select Current Location
@@ -649,12 +651,11 @@ export default class Home extends React.Component {
                     position: 'absolute',
                     bottom: scale(15),
                     padding: scale(10),
-
                     borderRadius: 6,
                     marginLeft: 25,
                     width: scale(260),
                   }}>
-                  <Icon1 name="home" size={24} color="#D82B7F" />
+                  <Icon1 name="home" size={24} color="#eb6199" />
                   <Text
                     style={{
                       textAlign: 'center',
@@ -674,3 +675,4 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create(style.home);
+

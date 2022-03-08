@@ -24,6 +24,7 @@
  import Membership from './screens/Membership';
  import Cart from './screens/Cart';
  import Settings from './screens/Settings';
+ import VatalityTips from './screens/VatalityTips';
  import ProductDetail from './screens/ProductDetail';
  import Login from './screens/Login';
  import Register from './screens/Register';
@@ -72,6 +73,7 @@
          <Stack.Screen name="Products" component={ProductListing} />
          <Stack.Screen name="ProductDetail" component={ProductDetail} />
          <Stack.Screen name="WebViewContent" component={WebViewContent} />
+         <Stack.Screen name="VatalityTips" component={VatalityTips} />
          <Stack.Screen name="Cart" component={Cart} />
          <Stack.Screen name="Address" component={Address} />
          <Stack.Screen name="Payment" component={Payment} />

@@ -539,21 +539,6 @@ export default class MemberShip extends React.Component {
                 </Text>
               </View>
             </View>
-            {/* <View>
-           <Slider
-          style={{ height: scale(20), width: scale(320)}}
-          trackStyle={customStyles6.track}
-          thumbStyle={customStyles6.thumb}
-          minimumValue={1000}
-          maximumValue={6000}
-          step={1000}
-          thumbTouchSize={{width:50,height:50}}
-          minimumTrackTintColor={Colors.primary}
-          value={this.state.value}
-          onValueChange={(value) => this.setState({value})}
-        />
-        <Text>Value: {this.state.value}</Text>
-           </View> */}
             <View
               style={{
                 justifyContent: 'center',
@@ -599,7 +584,7 @@ export default class MemberShip extends React.Component {
                       width: 15,
                       height: 10,
                       borderRadius: 5,
-                      backgroundColor: '#e7abc3',
+                      backgroundColor: '#eb6199',
                     }}
                     inactiveDotStyle={{
                       backgroundColor: Colors.darkGray,

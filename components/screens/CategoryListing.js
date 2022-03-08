@@ -129,7 +129,7 @@ export default class CategoryListing extends React.Component {
                 position: 'absolute',
                 left: 20,
                 bottom: -10,
-                backgroundColor: '#e7abc3',
+                backgroundColor: '#eb6199',
                 shadowColor: '#999',
                 shadowOffset: {
                   width: 0,
@@ -168,7 +168,7 @@ export default class CategoryListing extends React.Component {
                 return (
                   <PersonCard
                    item={item}
-                    image={item.image}
+                    image={item.image} 
                     Name={item.name}
                     style={{ marginVertical: 3, marginHorizontal: 5 }}
                   />
@@ -203,9 +203,10 @@ export default class CategoryListing extends React.Component {
                       shadowRadius: 5.27,
                       elevation: 15,
                       marginHorizontal: 3,
-                    }}>
+                    }}
+                     key={index}>
                     <LinearGradient
-                      colors={['#e7abc3', '#fff']}
+                      colors={['#eb6199', '#fff']}
                       style={{
                         width: 140,
                         height: 160,
