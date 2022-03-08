@@ -4,3 +4,5 @@ export const Colors = {
     white: "#fff",
     darkGray:"#696969"
 }
+
+export const API_URL= "https://dev.vitasure.net/wp-json"

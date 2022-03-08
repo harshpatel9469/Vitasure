@@ -37,6 +37,7 @@ import {
   IconBtn,
 } from '../utils';
 import {scale} from 'react-native-size-matters';
+import {connect} from 'react-redux';
 
 const {width} = Dimensions.get('window');
 const stylesnew = StyleSheet.create({
@@ -63,7 +64,7 @@ const stylesnew = StyleSheet.create({
   },
 });
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -108,11 +109,15 @@ export default class Home extends React.Component {
     outOfStockMessage: '',
     categories: [],
     brands: [],
-    featuredProducts: [],
-    favoriteProducts: [],
+    featuredProducts: [],   
+    favoriteProducts: [],    
   };
+  componentDidMount() {
+    this.props.getProduct();
+console.log(this.props.allProducts?.length);
 
-  goToProduct(item) {
+  }
+  goToProduct(item) {  
     this.props.navigation.navigate('ProductDetail', {product: item});
   }
 
@@ -192,7 +197,7 @@ export default class Home extends React.Component {
       </TouchableOpacity>
     );
   };
-
+  
   render() {
     return (
       <Wrapper>
@@ -385,7 +390,7 @@ export default class Home extends React.Component {
                 flexDirection: 'row',
                 padding: 4,
               }}
-              onPress={()=>this.props.navigation.navigate("Membership")}
+              onPress={() => this.props.navigation.navigate('Membership')}
               activeOpacity={0}>
               <Text style={{color: '#fff', fontSize: 13, fontWeight: 'bold'}}>
                 {'Start Collection'}
@@ -479,11 +484,11 @@ export default class Home extends React.Component {
                           backgroundColor: '#F2E34C',
                         }}
                         onPress={() => {
-                          this.props.navigation.navigate(item.screenName);
+                          this.props.navigation.navigate('OurPlant');
                         }}>
                         <EntypoIcon
                           name="chevron-right"
-                          style={{fontSize: 22, padding: 1, color: '#808080'}}
+                          style={{fontSize: 22, padding: 1, color: '#808080'}}   
                         />
                       </TouchableOpacity>
                     </LinearGradient>
@@ -541,11 +546,11 @@ export default class Home extends React.Component {
               }}>
               <View
                 style={{
-                  // margin: 20,
-                  height: '100%',
-                  width: '100%',
+                  margin: 20,
+                  height: '80%',
+                  width: '90%',
                   backgroundColor: 'white',
-                  // borderRadius: 20,
+                  borderRadius: 20,
                   padding: 35,
 
                   shadowColor: '#000',
@@ -673,6 +678,12 @@ export default class Home extends React.Component {
     );
   }
 }
-
+export default connect(
+  (state) => ({
+    allProducts: state.product?.allProducts,
+  }),
+  (dispatch) => ({
+    getProduct: dispatch.product.getProducts,
+  }),
+)(Home);
 const styles = StyleSheet.create(style.home);
-
