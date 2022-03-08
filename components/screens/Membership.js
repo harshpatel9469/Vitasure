@@ -584,7 +584,7 @@ export default class MemberShip extends React.Component {
                       width: 15,
                       height: 10,
                       borderRadius: 5,
-                      backgroundColor: '#e7abc3',
+                      backgroundColor: '#eb6199',
                     }}
                     inactiveDotStyle={{
                       backgroundColor: Colors.darkGray,

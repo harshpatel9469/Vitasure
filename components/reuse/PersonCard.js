@@ -11,7 +11,7 @@ import {scale} from 'react-native-size-matters';
 export const PersonCard = (props) => {
   return (
     <View
-      key={props?.item?.id}
+      key={props?.item?.id?.toString()}
       style={[
         {
           width: scale(100),

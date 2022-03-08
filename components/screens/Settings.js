@@ -61,9 +61,9 @@
 
 import config from '../../config';
 import React, { Component } from "react";
-
+import { scale } from 'react-native-size-matters';
 import { Image, TouchableOpacity, ScrollView, View, Text, StyleSheet } from 'react-native';
-import { Wrapper, Header, Left, Container, Right, Space, Row, Column, Touchable, H1, P, H4, Footer, Sm, Center, Btn, IconBtn } from '../utils';
+import { Wrapper, Header, Left, Container, Right, Space, Row, Column, Touchable, H1, P, H4, Colors, Footer, Sm, Center, Btn, IconBtn } from '../utils';
 
 import { responsiveWidth, responsiveHeight, responsiveFontSize } from "react-native-responsive-dimensions";
 import Icon from 'react-native-vector-icons/dist/Feather';
@@ -93,24 +93,31 @@ class Settings extends Component {
 
     return (
       <View style={[style.mainContainer]}>
-
+      <View style={[cstyle.topprofiletopbg]}>
+      <Image
+              source={require('../../assets/img/prifilebg.png')}
+              style={{ height: scale(250), width: scale(350) }}
+            />
+      </View>
         {/* <StatusBar backgroundColor="#fff" barStyle="dark-content" /> */}
         <Header>
           <Left>
-            <IconBtn icon={global.backIcon}
+            <IconBtn icon={global.backIcon}  color="#fff"
               onPress={() => this.props.navigation.goBack()}
-              style={{ marginLeft: -10 }}
+              style={{ marginLeft: 0,  color: '#fff' }}
             />
           </Left>
-          <Right>
+         <H1  style={{ color: '#ffffff', fontSize:scale(18), marginTop:15, }} >Profile</H1> 
+          {/* <Right>
             <Touchable onPress={() => this.props.navigation.navigate('EditProfile')} style={{ padding: 5, }}>
               <P>Edit</P>
             </Touchable>
-          </Right>
+          </Right> style={{ backgroundColor: "#fff" }} */} 
         </Header>
         <View style={[style.middle]}>
           <ScrollView>
-            <View style={{ backgroundColor: "#fff" }}>
+           
+            <View   style={[cstyle.topprofilebg]}>
               <TouchableOpacity style={[style.profileview]}>
 
                 <View style={[style.subcon1]}>
@@ -124,12 +131,12 @@ class Settings extends Component {
                 </View>
               </TouchableOpacity>
             </View>
-            <View style={{ backgroundColor: "#f7f8fa" }}>
-              <View style={{ backgroundColor: "#f7f8fa", padding: responsiveWidth(2) }}>
+            <View style={{ backgroundColor: "#f7f8fa", paddingHorizontal:15, }}>
+              {/* <View style={{ backgroundColor: "#f7f8fa", padding: responsiveWidth(2) }}>
                 <Text style={[cstyle.H5Text, cstyle.boldFont, { color: "#d2d5dd" }]}>INFORMATION</Text>
-              </View>
-              <View style={{ backgroundColor: "#fff", paddingHorizontal: responsiveWidth(2), borderBottomWidth: 0.5, borderBottomColor: "#c6c6c6" }}>
-                {/* {this.settingmapping()} */}
+              </View> */}
+              {/* <View style={{ backgroundColor: "#fff", paddingHorizontal: responsiveWidth(2), borderBottomWidth: 0.5, borderBottomColor: "#c6c6c6" }}>
+               
                 <TouchableOpacity style={{ flexDirection: "row", ustifyContent: "space-between", borderBottomWidth: 0.5, borderBottomColor: "#c6c6c6", paddingVertical: responsiveHeight(1.5) }}>
                   <View style={{ flex: 0.38, justifyContent: "center", }}>
                     <Text style={[cstyle.boldFont, cstyle.H7Text]}>Username</Text>
@@ -167,18 +174,21 @@ class Settings extends Component {
 
                 </TouchableOpacity>
 
-              </View>
-              <ListItem icon={<Icon name={global.nextIcon} color={config.defaultFontColor} size={18} />} onPress={() => this.props.navigation.navigate('OrderHistory')}>
+              </View> */}
+               <ListItem  style={[cstyle.profilelist]} icon={<Icon name={global.nextIcon} color={config.defaultFontColor} size={18} />} onPress={() => {this.props.navigation.navigate('EditProfile')}} >
+                <P style={{ marginBottom: 0 }}>Edit Profile</P>
+              </ListItem>
+              <ListItem style={[cstyle.profilelist]} icon={<Icon name={global.nextIcon} color={config.defaultFontColor} size={18} />} onPress={() => this.props.navigation.navigate('OrderHistory')}>
                 <P style={{ marginBottom: 0 }}>Transaction History</P>
               </ListItem>
 
-              <ListItem icon={<Icon name={global.nextIcon} color={config.defaultFontColor} size={18} />} onPress={() => this.props.navigation.navigate('Login')}>
+              <ListItem  icon={<Icon name={global.nextIcon} color={config.defaultFontColor} size={18} />} onPress={() => this.props.navigation.navigate('Login')}>
                 <P style={{ marginBottom: 0 }}>Login</P>
               </ListItem>
 
               <Space />
 
-              <Btn label={'Logout'} type={'light'} />
+              <Btn style={[cstyle.btnlgout]} label={'Logout'} type={'light'} />
             </View>
           </ScrollView>
         </View>
@@ -205,6 +215,22 @@ const style = StyleSheet.create({
 
 
 const cstyle = StyleSheet.create({
+  topprofiletopbg:{
+    position:"absolute",
+    width:'100%',
+    height:250,
+    top:-125,
+    left:0,
+    borderBottomEndRadius:100,
+    borderBottomStartRadius:100,
+  },
+  profilelist:{
+    borderBottomWidth:1,
+    borderBottomColor:'#D2D2D2'
+  },
+  btnlgout:{
+    backgroundColor:'#E86394'
+  },
   container: {
     backgroundColor: "#fff",
     flex: 1
