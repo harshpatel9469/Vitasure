@@ -4,11 +4,11 @@ import * as apiService from '../services/productServices';
 
 export const product = {
   state: {
-    allProduct: null,
+    allProducts: null,
   },
   reducers: {
     setProduct(state, product) {
-      return {...state, allProduct: product};
+      return {...state, allProducts: product};
     },
   },
   effects: (dispatch) => ({

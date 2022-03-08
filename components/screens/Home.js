@@ -107,15 +107,15 @@ class Home extends React.Component {
     outOfStockMessage: '',
     categories: [],
     brands: [],
-    featuredProducts: [],
+    featuredProducts: [],   
     favoriteProducts: [],
   };
   componentDidMount() {
     this.props.getProduct();
-console.log(this.props,"----------");
+console.log(this.props.allProducts?.length);
 
   }
-  goToProduct(item) {
+  goToProduct(item) {  
     this.props.navigation.navigate('ProductDetail', {product: item});
   }
 
@@ -680,7 +680,7 @@ console.log(this.props,"----------");
 }
 export default connect(
   (state) => ({
-    allProducts: state.product?.allProduct,
+    allProducts: state.product?.allProducts,
   }),
   (dispatch) => ({
     getProduct: dispatch.product.getProducts,

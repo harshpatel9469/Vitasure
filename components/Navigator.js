@@ -67,6 +67,7 @@
          <Stack.Screen name="Splash" component={Splash} />
          <Stack.Screen name="Home" component={Tabs} />
          <Stack.Screen name="Login" component={Login} />
+         <Stack.Screen name="Settings" component={Settings} />
          <Stack.Screen name="Register" component={Register} />
          <Stack.Screen name="Shop" component={CategoryListing} />
          <Stack.Screen name="Products" component={ProductListing} />
