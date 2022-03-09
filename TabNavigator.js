@@ -72,7 +72,8 @@ const Tabs = () => {
         style: TabStyle,
         activeTintColor: config.primaryColor,
         inactiveTintColor: config.defaultFontColor,
-      }}>
+      }}
+      initialRouteName={"Settings"}>
       {/* <Tab.Screen name="Splash" component={Splash} options={{
           title: 'Splash',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="home" />,

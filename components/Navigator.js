@@ -35,6 +35,10 @@
  import Tabs from '../TabNavigator';
  import OurPlant from './screens/OurPlant'
  import PlantDescription from './screens/PlantDescription';
+ import VatalityTips from './screens/VatalityTips';
+ 
+import { useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
  global.debugMode = false;
  global.backIcon = Platform.OS == 'ios' ? 'chevron-left' : 'arrow-left';
  global.nextIcon = Platform.OS == 'ios' ? 'chevron-right' : 'arrow-right';
@@ -58,6 +62,15 @@
  
   
  const Navigator = () => {
+  const alerts = useSelector((state) => state.alerts.all);
+  const alertsProcessed = React.useRef(0);
+
+  React.useEffect(() => {
+    if (alerts.length <= alertsProcessed.current) return;
+
+    const [alert] = alerts.slice(-1);
+    Toast.show({ type: alert.type, text1: alert.title, text2: alert.message });
+  }, [alerts, alertsProcessed]);
    return (
      <NavigationContainer>
        <Stack.Navigator screenOptions={{
@@ -83,7 +96,10 @@
          <Stack.Screen name="OurPlant" component={OurPlant} />
          <Stack.Screen name="Membership" component={Membership} />
          <Stack.Screen name="PlantDescription" component={PlantDescription} />
+         <Stack.Screen name="VatalityTips" component={VatalityTips} />
        </Stack.Navigator>
+       <Toast ref={(ref) => Toast.setRef(ref)} />
+
      </NavigationContainer>
    );
  };
