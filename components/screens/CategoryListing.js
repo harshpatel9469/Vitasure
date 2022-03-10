@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -33,13 +33,15 @@ import LinearGradient from 'react-native-linear-gradient';
 const {width} = Dimensions.get('window');
 import {scale} from 'react-native-size-matters';
 import ProductGridItem from '../reuse/ProductGridItem';
+import {useDispatch, useSelector} from 'react-redux';
 const CityPlaceHolder = {
   label: 'Select item',
   value: null,
   color: 'gray',
 };
 
-export default function CategoryListing(props){
+export default function CategoryListing(props) {
+  const dispatch = useDispatch();
   const [mode, setMode] = useState('grid');
   const [personCategory, setPersonCategory] = useState([
     {id: 1, name: 'Him', image: require('../../assets/img/men-1.png')},
@@ -64,7 +66,8 @@ export default function CategoryListing(props){
       discount: 'flat 45% discount',
     },
   ]);
-
+  const allProducts = useSelector((state) => state.product.allProducts);
+  // console.log(JSON.stringify(allProducts));
   const _keyCategoryExtractor = (item, index) => item.id;
   const goToCategory = (item) => {
     props.navigation.navigate('Products');
@@ -73,23 +76,25 @@ export default function CategoryListing(props){
     props.navigation.navigate('ProductDetail', {product: item});
   };
   const addToCart = () => {
-    console.log('add to cart');
+    // console.log('add to cart');
   };
 
   const _renderItem = ({item, index}) => (
     <ProductGridItem
       key={item.id}
-      onPress={goToProduct.bind(this)}
-      addToCart={addToCart.bind(this)}
+      onPress={goToProduct}
+      addToCart={addToCart}
       item={item}
       cartInProgressItems={props.cartInProgressItems}
-      showMessage={true}
+      showMessage={true} 
       showCartBtn={true}
       style={{maxWidth: width / 3, flex: 0.33}}
       layout={2}
     />
   );
-
+  useEffect(() => {
+    dispatch.product.getProducts();
+  }, []);
   return (
     <Wrapper>
       <Header>
@@ -130,7 +135,7 @@ export default function CategoryListing(props){
       </Header>
 
       <Container>
-        <H1>Shop</H1>
+        {/* <H1>Shop</H1> */}
         <View>
           <Image
             source={{
@@ -194,13 +199,14 @@ export default function CategoryListing(props){
         </ScrollView>
         <Space />
         <H4>Featured Items</H4>
-        <Carousel
-          data={sample_data.items}
-          renderItem={_renderItem}
-          sliderWidth={width - 30}
-          itemWidth={(width - 30) * 0.33}
-        />
-
+        {/* {allProducts?.length ? ( */} 
+          <Carousel
+            data={allProducts?allProducts:[]}
+            renderItem={_renderItem}
+            sliderWidth={width - 30}
+            itemWidth={(width - 30) * 0.33}
+          /> 
+        {/* ) : null} */}
         <Space />
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={{flexDirection: 'row'}}>
@@ -309,5 +315,4 @@ export default function CategoryListing(props){
       </Container>
     </Wrapper>
   );
-};
- 
+}

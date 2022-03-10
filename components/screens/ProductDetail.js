@@ -37,12 +37,14 @@ import sample_data from '../../sample_data';
 import {scale} from 'react-native-size-matters';
 import ProductGridItem from '../reuse/ProductGridItem';
 import {Colors} from '../Constant';
+import { useSelector } from 'react-redux';
 const {height, width} = Dimensions.get('window');
 
 export default function ProductDetail(props) {
   const [product, setProduct] = useState(props.route.params?.product);
   const carousel = useRef(null);
   const addToCart = () => {};
+  const allProducts = useSelector((state) => state.product.allProducts);
 
   const shareProduct = () => {
     Share.share({
@@ -51,8 +53,8 @@ export default function ProductDetail(props) {
     });
   };
 
-  const _renderGalleryItem = (imageUrl) => {
-    return <Image source={{uri: imageUrl.item}} style={styles.image} />;
+  const _renderGalleryItem = ({item,index}) => {  
+    return <Image source={{uri: item?.src}} style={styles.image} />;
   };
   const goToProduct = (item) => {
     props.navigation.navigate('ProductDetail', {product: item});
@@ -60,17 +62,16 @@ export default function ProductDetail(props) {
   const _renderItem = ({item, index}) => (
     <ProductGridItem
       key={item.id}
-      onPress={()=>goToProduct(item)}
-      addToCart={addToCart()}
+      onPress={goToProduct}
+      addToCart={addToCart}
       item={item}
       cartInProgressItems={props.cartInProgressItems}
-      showMessage={true}
+      showMessage={true} 
       showCartBtn={true}
       style={{maxWidth: width / 3, flex: 0.33}}
       layout={2}
     />
   );
-
   return (
     <>
       <StatusBar
@@ -134,10 +135,10 @@ export default function ProductDetail(props) {
         </Right>
       </Row> */}
           <H3 style={{marginBottom: 10}}>{product?.name}</H3>
-          <H6 style={{marginBottom: 10}}>{product?.description}</H6>
+          {/* <H6 style={{marginBottom: 10}}>{product?.description}</H6> */}
         </Container>
         <Container>
-          {product?.isEffect ? (
+          {/* {product?.isEffect ? (
             <View>
               <View style={styles.effectView}>
                 <Image
@@ -176,7 +177,7 @@ export default function ProductDetail(props) {
                 <P>1 sachet a day for 5 days of your period</P>
               </View>
             </View>
-          ) : null}
+          ) : null} */}
           <Space />
           <Row nomargin={true}>
             <Left flexDirection={'row'}>
@@ -229,8 +230,8 @@ export default function ProductDetail(props) {
             <Right>
               <Price
                 style={{color: '#c30000', fontWeight: 'bold', fontSize: 24}}
-                price={product?.price}
-                specialPrice={product?.special_price}
+                price={product?.prices.price}
+                specialPrice={product?.prices?.sale_price}
               />
             </Right>
           </Row>
@@ -264,12 +265,11 @@ export default function ProductDetail(props) {
           <Space />
           <H4>Featured Items</H4>
           <Carousel
-            ref={carousel}
-            data={sample_data.items}
+            data={allProducts?allProducts:[]}
             renderItem={_renderItem}
-            sliderWidth={width}
+            sliderWidth={width - 30}
             itemWidth={(width - 30) * 0.33}
-          />
+          /> 
           <Space />
           <Space />
         </Container>
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: height / 2 - 40,
-    resizeMode: 'cover',
+    resizeMode: 'contain', 
   },
   skuLine: {
     flexDirection: 'row',

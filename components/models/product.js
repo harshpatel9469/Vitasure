@@ -7,8 +7,8 @@ export const product = {
     allProducts: null,
   },
   reducers: {
-    setProduct(state, product) {
-      return {...state, allProducts: product};
+    setProduct(state, allProducts) {
+      return {...state, allProducts};
     },
   },
   effects: (dispatch) => ({

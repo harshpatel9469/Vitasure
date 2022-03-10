@@ -112,7 +112,7 @@ export default function Home(props) {
   };
 
   const addToCart = () => {
-    console.log('add to cart');
+    // console.log('add to cart');
   };
 
   const _renderItem = ({item, index}) => (

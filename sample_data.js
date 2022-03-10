@@ -78,12 +78,12 @@ let data = {
       name: 'Alfasure',
       sku: 'SKU001',
       images: [
-        'https://dev.vitasure.net/wp-content/uploads/2021/06/AlfaAktivPro12.2020-600x450.jpg',
+      {src:'https://dev.vitasure.net/wp-content/uploads/2021/06/AlfaAktivPro12.2020-600x450.jpg'},
         'https://dev.vitasure.net/wp-content/uploads/2021/09/malina.4a770403-150x150-1.jpg',
         "https://dev.vitasure.net/wp-content/uploads/2021/09/zlatnica.05d37d28-150x150-1.jpg",
         "https://dev.vitasure.net/wp-content/uploads/2021/09/persun-150x150-1.jpg"
       ],
-      price: '$500',
+      prices: {price:'$500'},
       id: 1,
       rating: 3,
       brand_name: 'My Brand',
@@ -95,9 +95,9 @@ let data = {
       name: 'Devisure',
       sku: 'SKU001',
       images: [
-        'https://dev.vitasure.net/wp-content/uploads/2021/06/devi_zagrudi.jpg', 
+        {src:'https://dev.vitasure.net/wp-content/uploads/2021/06/devi_zagrudi.jpg'}, 
       ],
-      price: '$200',
+      prices: {price:'$200'},
       special_price: '$500',
       id: 2,
       rating: 4,
@@ -109,9 +109,9 @@ let data = {
       name: 'Femisure',
       sku: 'SKU001',
       images: [
-        'https://dev.vitasure.net/wp-content/uploads/2021/06/femisan_A_kapule-460x460.png', 
+        {src:'https://dev.vitasure.net/wp-content/uploads/2021/06/femisan_A_kapule-460x460.png'}, 
       ],
-      price: '$200',
+      prices: {price:'$200'},
       special_price: '$160',
       id: 3,
       brand_name: 'My Brand',

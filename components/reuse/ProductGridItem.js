@@ -1,74 +1,86 @@
 import React from 'react';
+import {View,TouchableOpacity} from 'react-native';
+
 import {
-	View
-} from 'react-native';
-
-import { Card, CardContent, CardFooter, Left, Right, Touchable, StarRating, Sm, Price, CardImage } from '../utils';
+  Card,
+  CardContent,
+  CardFooter,
+  Left,
+  Right,
+  Touchable,
+  StarRating,
+  Sm,
+  Price,
+  CardImage,
+} from '../utils';
 import Icon from 'react-native-vector-icons/dist/Feather';
-import config from '../../config';
+import config from '../../config'; 
 
-export default class ProductGridItem extends React.Component {
+export default function ProductGridItem(props) {
+  const layout01 = () => {
+    return (
+      <Card style={props.style} onPress={() => props.onPress(props.item)}>
+        <CardImage source={{uri: props.item.images[0]}} />
+        <CardContent>
+          <View>
+            <Sm>{props.item.name}</Sm>
+          </View>
+        </CardContent>
+        <CardFooter>
+          <Left>
+            <View>
+              <StarRating rating={props.item.rating} />
+              <Price
+                price={props.item.price}
+                specialPrice={props.item.special_price}
+              />
+            </View>
+          </Left>
+          <Right>
+            <Touchable
+              onPress={() => {}}
+              style={[config.style.iconBtn, config.style.gridCartBtn]}>
+              <Icon
+                name={'shopping-cart'}
+                size={20}
+                color={config.style.iconBtnColor}
+              />
+            </Touchable>
+          </Right>
+        </CardFooter>
+      </Card>
+    );
+  };
+// console.log(props.layout, JSON.stringify(props.item?.images[0]?.src),JSON.stringify(props.item.prices),props.item.id); 
+  const layout02 = () => {
+    return (
+      <TouchableOpacity   onPress={() => props.onPress(props.item)}>
+        <Touchable
+          style={[props.style || {}, {marginBottom: 15}]}
+         >
+          <CardImage
+            source={{uri: props.item?.images[0]?.src}}
+            style={{borderRadius: config.defaultBorderRadius}}
+          />
+        </Touchable>
 
+        <Sm>{props.item.name}</Sm>
+        <Price
+          price={props.item.prices.price}
+          specialPrice={props.item.prices?.sale_price}
+        />
+      </TouchableOpacity>
+    );
+  };
 
-	layout01() {
-		return (
-			<Card style={this.props.style} onPress={() => this.props.onPress(this.props.item)}>
-				<CardImage 
-					source={{uri: this.props.item.images[0]}}
-				/>
-				<CardContent>
-					<View>
-						<Sm>{this.props.item.name}</Sm>
-					</View>
-				</CardContent>
-				<CardFooter>
-					<Left >
-						<View>
-							<StarRating rating={this.props.item.rating} />
-							<Price price={this.props.item.price} specialPrice={this.props.item.special_price} />
-						</View>
-					</Left>
-					<Right>
-						<Touchable onPress={() => {}} style={[config.style.iconBtn, config.style.gridCartBtn]}>
-							<Icon name={'shopping-cart'} size={20} color={config.style.iconBtnColor} />
-						</Touchable>
-					</Right>
-				</CardFooter>
-			</Card>
-		);
-	}
+  switch (props.layout) {
+    case 2:
+      return layout02();
 
-	layout02() {
-		return (
-			<View>
-				<Touchable style={[this.props.style || {}, {marginBottom: 15}]} onPress={() => this.props.onPress(this.props.item)}>
-					<CardImage 
-						source={{uri: this.props.item.images[0]}}
-						style={{borderRadius: config.defaultBorderRadius}}
-					/>
-				</Touchable>
-				
-				<Sm>{this.props.item.name}</Sm>
-				<Price price={this.props.item.price} specialPrice={this.props.item.special_price} />
-			</View>
-		);
-	}
+    case 3:
+      return layout01();
 
-	layout03() {
-
-	}
-
-	render() {
-		switch(this.props.layout) {
-			case 2:
-				return this.layout02();
-
-			case 3:
-				return this.layout03();
-			
-			default:
-				return this.layout01();
-		}
-	}
-	
+    default:
+      return null;
+  }
 }
