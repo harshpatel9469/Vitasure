@@ -39,7 +39,7 @@ const CityPlaceHolder = {
   color: 'gray',
 };
 
-const CategoryListing = (props) => {
+export default function CategoryListing = (props) => {
   const [mode, setMode] = useState('grid');
   const [personCategory, setPersonCategory] = useState([
     {id: 1, name: 'Him', image: require('../../assets/img/men-1.png')},
@@ -310,5 +310,4 @@ const CategoryListing = (props) => {
     </Wrapper>
   );
 };
-
-export default CategoryListing;
+ 
