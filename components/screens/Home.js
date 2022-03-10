@@ -64,7 +64,7 @@ const stylesnew = StyleSheet.create({
 });
 
 
-export default function Home = (props) => {
+export default function Home(props) {
   const [isVisibleLocation, setIsVisibleLocation] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeSlide1, setActiveSlide1] = useState(0);
