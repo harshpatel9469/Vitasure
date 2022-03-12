@@ -9,6 +9,7 @@ import {
   Platform,
   View,
   Text,
+  ActivityIndicator,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/dist/Feather';
@@ -37,15 +38,35 @@ import sample_data from '../../sample_data';
 import {scale} from 'react-native-size-matters';
 import ProductGridItem from '../reuse/ProductGridItem';
 import {Colors} from '../Constant';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 const {height, width} = Dimensions.get('window');
 
 export default function ProductDetail(props) {
-  const [product, setProduct] = useState(props.route.params?.product);
+  const [quantity, setQuantity] = useState(1);
   const carousel = useRef(null);
-  const addToCart = () => {};
-  const allProducts = useSelector((state) => state.product.allProducts);
+  const dispatch = useDispatch();
 
+  const isLoading = useSelector(
+    (state) => state.loading.effects.product.getProductById,
+  );
+  const isAddtoCart = useSelector(
+    (state) => state.loading.effects.cart.addToCart,
+  ); 
+  const allProducts = useSelector((state) => state.product.allProducts);
+  const cart = useSelector((state) => state.cart.cartItem);
+  const productDetails = useSelector((state) => state.product.productDetails);
+  console.log(productDetails?.id);
+  const token = useSelector((state) => state.session.token);
+  useEffect(() => {
+    dispatch.product.getProductById(props.route.params?.product?.id);
+  }, []);
+
+  const addToCart = () => {
+    dispatch.cart.addToCart({
+      data: {id: productDetails?.id, quantity: quantity},
+      token,
+    });
+  };
   const shareProduct = () => {
     Share.share({
       message: 'Share Product (Message)',
@@ -53,7 +74,7 @@ export default function ProductDetail(props) {
     });
   };
 
-  const _renderGalleryItem = ({item,index}) => {  
+  const _renderGalleryItem = ({item, index}) => {
     return <Image source={{uri: item?.src}} style={styles.image} />;
   };
   const goToProduct = (item) => {
@@ -66,7 +87,7 @@ export default function ProductDetail(props) {
       addToCart={addToCart}
       item={item}
       cartInProgressItems={props.cartInProgressItems}
-      showMessage={true} 
+      showMessage={true}
       showCartBtn={true}
       style={{maxWidth: width / 3, flex: 0.33}}
       layout={2}
@@ -80,53 +101,38 @@ export default function ProductDetail(props) {
           config.layoutMode == 'dark' ? 'light-content' : 'dark-content'
         }
       />
-      <ScrollView
-        style={{flex: 1}}
-        contentContainerStyle={{backgroundColor: '#fff'}}>
-        {product?.images && product?.images.length > 0 ? (
-          <Carousel
-            ref={carousel}
-            data={product?.images}
-            renderItem={_renderGalleryItem}
-            sliderWidth={width}
-            itemWidth={width}
-          />
-        ) : (
-          <Image
-            source={require('../../assets/img/placeholder_image-new.png')}
-            style={styles.image}
-          />
-        )}
-
-        <Container
+      {isLoading ? (
+        <View
           style={{
-            position: 'absolute',
-            top: Platform.OS == 'ios' ? 40 : 10,
-            left: 0,
-            width: '98%',
+            height: scale(height - 200),
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          <Row>
-            <Left>
-              <IconBtn
-                icon={global.backIcon}
-                onPress={() => props.navigation.goBack()}
-              />
-            </Left>
-            <Right>
-              <IconBtn icon={'share-2'} onPress={() => shareProduct()} />
-              <IconBtn
-                icon={'shopping-cart'}
-                onPress={() => props.navigation.navigate('Cart')}
-                badge={2}
-              />
-            </Right>
-          </Row>
-        </Container>
+          <ActivityIndicator color={Colors.primary} size={'large'} />
+        </View>
+      ) : (
+        <ScrollView
+          style={{flex: 1}}
+          contentContainerStyle={{backgroundColor: '#fff'}}>
+          {productDetails?.images && productDetails?.images.length > 0 ? (
+            <Carousel
+              ref={carousel}
+              data={productDetails?.images}
+              renderItem={_renderGalleryItem}
+              sliderWidth={width}
+              itemWidth={width}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/img/placeholder_image-new.png')}
+              style={styles.image}
+            />
+          )}
 
-        <Space />
+          <Space />
 
-        <Container style={{borderTopWidth: 0.5, paddingTop: scale(10)}}>
-          {/* <Row nomargin={true}>
+          <Container style={{borderTopWidth: 0.5, paddingTop: scale(10)}}>
+            {/* <Row nomargin={true}>
         <Left>
           <Sm style={{ fontWeight: 'bold', color: '#cccccc' }}>{product?.sku.toUpperCase()}</Sm>
         </Left>
@@ -134,11 +140,11 @@ export default function ProductDetail(props) {
           <Sm style={{ color: '#00b0ed', fontWeight: 'bold' }}>{product?.brand_name}</Sm>
         </Right>
       </Row> */}
-          <H3 style={{marginBottom: 10}}>{product?.name}</H3>
-          {/* <H6 style={{marginBottom: 10}}>{product?.description}</H6> */}
-        </Container>
-        <Container>
-          {/* {product?.isEffect ? (
+            <H3 style={{marginBottom: 10}}>{productDetails?.name}</H3>
+            {/* <H6 style={{marginBottom: 10}}>{product?.description}</H6> */}
+          </Container>
+          <Container>
+            {/* {product?.isEffect ? (
             <View>
               <View style={styles.effectView}>
                 <Image
@@ -178,66 +184,74 @@ export default function ProductDetail(props) {
               </View>
             </View>
           ) : null} */}
-          <Space />
-          <Row nomargin={true}>
-            <Left flexDirection={'row'}>
-              <View
-                style={{
-                  justifyContent: 'space-between',
-                  width: scale(80),
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Touchable
+            <Space />
+            <Row nomargin={true}>
+              <Left flexDirection={'row'}>
+                <View
                   style={{
-                    height: scale(25),
-                    width: scale(25),
-                    paddingHorizontal: scale(9),
-                    borderRadius: 5,
-                    backgroundColor: Colors.primary,
-                    justifyContent: 'center',
+                    justifyContent: 'space-between',
+                    width: scale(80),
+                    flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <Text
+                  <Touchable
                     style={{
-                      fontSize: scale(15),
-                      color: Colors.white,
+                      height: scale(25),
+                      width: scale(25),
+                      paddingHorizontal: scale(9),
+                      borderRadius: 5,
+                      backgroundColor: Colors.primary,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onPress={() => {
+                      if (quantity > 1) setQuantity(quantity - 1);
                     }}>
-                    -
-                  </Text>
-                </Touchable>
-                <Text>1</Text>
-                <Touchable
-                  style={{
-                    height: scale(25),
-                    width: scale(25),
-                    paddingHorizontal: scale(9),
-                    borderRadius: 5,
-                    backgroundColor: Colors.primary,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Text
+                    <Text
+                      style={{
+                        fontSize: scale(15),
+                        color: Colors.white,
+                      }}>
+                      -
+                    </Text>
+                  </Touchable>
+                  <Text>{quantity}</Text>
+                  <Touchable
                     style={{
-                      fontSize: scale(15),
-                      color: Colors.white,
-                    }}>
-                    +
-                  </Text>
-                </Touchable>
-              </View>
-            </Left>
-            <Right>
-              <Price
-                style={{color: '#c30000', fontWeight: 'bold', fontSize: 24}}
-                price={product?.prices.price}
-                specialPrice={product?.prices?.sale_price}
-              />
-            </Right>
-          </Row>
-          <Space />
-          <Btn label={'ADD TO CART'} />
-          {/* <ListItem 
+                      height: scale(25),
+                      width: scale(25),
+                      paddingHorizontal: scale(9),
+                      borderRadius: 5,
+                      backgroundColor: Colors.primary,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onPress={() => setQuantity(quantity + 1)}>
+                    <Text
+                      style={{
+                        fontSize: scale(15),
+                        color: Colors.white,
+                      }}>
+                      +
+                    </Text>
+                  </Touchable>
+                </View>
+              </Left>
+              <Right>
+                <Price
+                  style={{color: '#c30000', fontWeight: 'bold', fontSize: 24}}
+                  price={productDetails?.prices.price}
+                  specialPrice={productDetails?.prices?.sale_price}
+                />
+              </Right>
+            </Row>
+            <Space />
+            <Btn
+              label={'ADD TO CART'}
+              onPress={addToCart}
+              isSpinner={isAddtoCart}
+            />
+            {/* <ListItem 
         icon={<Icon name={global.nextIcon} color={config.defaultFontColor} size={18} />} 
         onPress={
           () => this.props.navigation.navigate(
@@ -262,18 +276,43 @@ export default function ProductDetail(props) {
           }>
         <P style={{marginBottom: 0}}>Specification</P>
       </ListItem> */}
-          <Space />
-          <H4>Featured Items</H4>
-          <Carousel
-            data={allProducts?allProducts:[]}
-            renderItem={_renderItem}
-            sliderWidth={width - 30}
-            itemWidth={(width - 30) * 0.33}
-          /> 
-          <Space />
-          <Space />
-        </Container>
-      </ScrollView>
+            <Space />
+            <H4>Featured Items</H4>
+            <Carousel
+              data={allProducts ? allProducts : []}
+              renderItem={_renderItem}
+              sliderWidth={width - 30}
+              itemWidth={(width - 30) * 0.33}
+            />
+            <Space />
+            <Space />
+          </Container>
+        </ScrollView>
+      )}
+      <Container
+        style={{
+          position: 'absolute',
+          top: Platform.OS == 'ios' ? 40 : 10,
+          left: 0,
+          width: '98%',
+        }}>
+        <Row>
+          <Left>
+            <IconBtn
+              icon={global.backIcon}
+              onPress={() => props.navigation.goBack()}
+            />
+          </Left>
+          <Right>
+            <IconBtn icon={'share-2'} onPress={() => shareProduct()} />
+            <IconBtn
+              icon={'shopping-cart'}
+              onPress={() => props.navigation.navigate('Cart')}
+              badge={cart?.items?.length?cart.items.length:0}
+            />
+          </Right>
+        </Row>
+      </Container>
     </>
   );
 }
@@ -282,7 +321,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: height / 2 - 40,
-    resizeMode: 'contain', 
+    resizeMode: 'contain',
   },
   skuLine: {
     flexDirection: 'row',

@@ -6,3 +6,6 @@ import {API_URL} from '../Constant';
 export const getProduct = async () => {
   return await axios.get(`${API_URL}/wc/store/products`);
 };
+export const getProductById = async (id) => {
+  return await axios.get(`${API_URL}/wc/store/products/${id}`);
+};

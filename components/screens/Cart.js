@@ -6,6 +6,8 @@ import {
   Image,
   Text,
   ScrollView,
+  ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 
 import {CartItem} from '../reuse/CartItem';
@@ -33,12 +35,20 @@ import config from '../../config';
 import Icon from 'react-native-vector-icons/dist/Feather';
 import EntypoIcon from 'react-native-vector-icons/dist/Entypo';
 import {scale} from 'react-native-size-matters';
+import {useDispatch, useSelector} from 'react-redux';
+import {Colors} from '../Constant';
+const {height, width} = Dimensions.get('window');
 
 export default function Cart(props) {
+  const dispatch = useDispatch();
   const [_showQuantityModal, set_ShowQuantityModal] = useState('');
   const [curItem, setCurItem] = useState([]);
-  const [cart, setCart] = useState(sample_data.cart);
   const [cartInProgressItems, setCartInProgressItems] = useState([]);
+  const isLoading = useSelector((state) => state.loading.models.cart);
+  console.log(isLoading);
+  const token = useSelector((state) => state.session.token);
+
+  const cart = useSelector((state) => state.cart.cartItem);
   const [featureProduct, setFeatureProduct] = useState([
     {id: 1, name: 'pepsi'},
     {id: 2, name: 'cock'},
@@ -46,19 +56,32 @@ export default function Cart(props) {
     {id: 4, name: 'cock-1'},
   ]);
 
-  const cartHasItems = () => {
-    return (
-      cart &&
-      cart.lines !== undefined &&
-      cart.lines.length > 0
-    );
-  };
+  useEffect(() => {
+    if (token) dispatch.cart.getCart(token);
+    else props.navigation.navigate('Login');
+  }, []);
 
   const showQuantityModal = (item) => {};
 
-  const updateItemQty = (item, qty, increment = false) => {};
+  const updateItemQty = (item) => {
+    dispatch.cart.updateCart({
+      data: {key: item.key, quantity: item.quantity + 1},
+      token,
+    });
+  };
 
-  const deleteItem = (lineId, item) => {};
+  const deleteItem = (item) => {
+    if (item.quantity == 1) {
+      dispatch.cart.removeItemCart({
+        data: {key: item.key, quantity: item.quantity - 1},
+        token,
+      });
+    } else
+      dispatch.cart.updateCart({
+        data: {key: item.key, quantity: item.quantity - 1},
+        token,
+      });
+  };
 
   const checkout = () => {
     props.navigation.navigate('Address');
@@ -70,10 +93,10 @@ export default function Cart(props) {
 
   const _renderItem = ({item}) => (
     <CartItem
-      key={item.internalid}
-      deleteItem={deleteItem.bind(this)}
-      updateItemQty={updateItemQty.bind(this)}
-      showQuantityModal={showQuantityModal.bind(this)}
+      key={item.key}
+      deleteItem={deleteItem}
+      updateItemQty={updateItemQty}
+      showQuantityModal={showQuantityModal}
       item={item}
       style={{marginHorizontal: 2}}
     />
@@ -92,7 +115,10 @@ export default function Cart(props) {
         <H3>Oops!</H3>
         <Sm>Your cart is empty</Sm>
         <Space />
-        <Btn label={'Continue Shopping'} />
+        <Btn
+          label={'Continue Shopping'}
+          onPress={() => props.navigation.navigate('Home')}
+        />
       </Center>
     );
   };
@@ -102,7 +128,7 @@ export default function Cart(props) {
       <View>
         <FlatList
           key={'cart-item'}
-          data={cart.lines} 
+          data={cart?.items}
           keyExtractor={_keyExtractor}
           renderItem={_renderItem}
         />
@@ -114,7 +140,7 @@ export default function Cart(props) {
             <P>Subtotal</P>
           </Column>
           <Column align={'flex-end'}>
-            <P>{cart.summary.subtotal}</P>
+            <P>{cart?.totals?.total_items}</P>
           </Column>
         </Row>
 
@@ -125,7 +151,7 @@ export default function Cart(props) {
             <P>Tax Total</P>
           </Column>
           <Column align={'flex-end'}>
-            <P>{cart.summary.taxtotal}</P>
+            <P>{cart?.totals?.total_tax}</P>
           </Column>
         </Row>
 
@@ -136,7 +162,7 @@ export default function Cart(props) {
             <P>Shipping</P>
           </Column>
           <Column align={'flex-end'}>
-            <P>{cart.summary.estimatedshipping}</P>
+            <P>{cart?.totals?.total_shipping}</P>
           </Column>
         </Row>
 
@@ -147,11 +173,49 @@ export default function Cart(props) {
             <P bold={true}>Total</P>
           </Column>
           <Column align={'flex-end'}>
-            <H4>{cart.summary.total}</H4>
+            <H4>{cart?.totals?.total_price}</H4>
           </Column>
         </Row>
 
         <Space />
+      </View>
+    );
+  };
+  const _renderContent = () => {};
+
+  return (
+    <Wrapper>
+      <Header>
+        <Left>
+          <IconBtn
+            icon={global.backIcon}
+            onPress={() => props.navigation.goBack()}
+            style={{marginLeft: -10}}
+          />
+        </Left>
+        <Right>
+          <Touchable onPress={() => checkout()} style={config.style.iconBtn}>
+            <P>Checkout</P>
+          </Touchable>
+        </Right>
+      </Header>
+
+      <Container>
+        <H1>Cart</H1>
+        {isLoading ? (
+          <View
+            style={{
+              height: scale(170),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <ActivityIndicator color={Colors.primary} size={'large'} />
+          </View>
+        ) : cart?.items?.length > 0 ? (
+          _renderCartContent()
+        ) : (
+          _renderNoItems()
+        )}
         <View>
           <View style={{flexDirection: 'row'}}>
             <Text
@@ -234,7 +298,7 @@ export default function Cart(props) {
         <View
           style={[
             {
-              width: 360,
+              width: '100%',
               height: 60,
               flexDirection: 'row',
               justifyContent: 'flex-start',
@@ -282,36 +346,11 @@ export default function Cart(props) {
             />
           </View>
         </View>
-      </View>
-    );
-  };
-  const footer = (
-    <Footer>
-      <Btn label={'Checkout'} onPress={() => checkout()} />
-    </Footer>
-  );
-
-  const _renderContent = () => {};
-
-  return (
-    <Wrapper footer={cartHasItems() ? footer : null}>
-      <Header>
-        <Left>
-          <IconBtn
-            icon={global.backIcon}
-            onPress={() => props.navigation.goBack()}
-            style={{marginLeft: -10}}
-          />
-        </Left>
-        <Right>
-          <Touchable onPress={() => checkout()} style={config.style.iconBtn}>
-            <P>Checkout</P>
-          </Touchable>
-        </Right>
-      </Header>
-      <Container>
-        <H1>Cart</H1>
-        {cartHasItems() ? _renderCartContent() : _renderNoItems()}
+        <Btn
+          label={'Checkout'}
+          onPress={() => checkout()}
+          style={{width: '100%', marginVertical: scale(15)}}
+        />
       </Container>
     </Wrapper>
   );

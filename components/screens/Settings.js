@@ -43,6 +43,7 @@ export default function Settings(props) {
   const user = useSelector((state) => state.session.user);
   const userDetails = useSelector((state) => state.session.userDetails);
   const token = useSelector((state) => state.session.token);
+  console.log(token);
   useEffect(() => {
     if (token) {
       dispatch.session.getProfile(token);
@@ -201,7 +202,7 @@ export default function Settings(props) {
               style={[cstyle.btnlgout]}
               label={'Logout'}
               type={'light'}
-              onPress={() => dispatch.session.setUser(null)}
+              onPress={() => dispatch.session.logout()}
             />
           </View>
         </ScrollView>

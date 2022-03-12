@@ -18,9 +18,9 @@ export const CartItem = (props) => {
             <Row nomargin={true}>
                 <Column flex={0.3} style={{paddingVertical: 10}}>
                     {
-                        props.item.image ? 
+                        props.item.images ? 
                             <Image 
-                                source={{uri: props.item.image}}
+                                source={{uri: props.item?.images[0]?.src}}
                                 style={styles.image} 
                             /> : 
                             <Image 
@@ -31,21 +31,21 @@ export const CartItem = (props) => {
                 </Column>
                 <Column flex={0.7} style={{paddingVertical: 10, paddingLeft: 0}}>
                     <P>{props.item.name}</P>
-                    <Sm style={styles.sku}>{props.item.sku}</Sm>
+                    <Sm style={styles.sku}>{props.item?.sku}</Sm>
                     <Space />
                     <Row nomargin={true}>
                         <Left>
-                            <P style={styles.price}>{props.item.linetotal}</P>
+                            <P style={styles.price}>{props.item?.prices?.price}</P>
                         </Left>
                         <Right>
                             <View style={styles.quantityWrapper}>
-                                <TouchableOpacity style={styles.quantityBtn} onPress={() => props.updateItemQty(props.item, -1)}>
+                                <TouchableOpacity style={styles.quantityBtn} onPress={() => props.deleteItem(props.item)}>
                                     <Icon name={'minus'} color={'#76777a'} size={22} />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.quantityWrapperInner} onPress={() => props.showQuantityModal(props.item)}>
-                                    <Text style={styles.quantityText}>{props.item.qty}</Text>
+                                    <Text style={styles.quantityText}>{props.item.quantity}</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.quantityBtn} onPress={() => props.updateItemQty(props.item, 1)}>
+                                <TouchableOpacity style={styles.quantityBtn} onPress={() => props.updateItemQty(props.item)}>
                                     <Icon name={'plus'} color={'#76777a'} size={22} />
                                 </TouchableOpacity>
                             </View>

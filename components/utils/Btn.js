@@ -71,7 +71,7 @@ export default Btn = (props) => {
   }
 
   return (
-    <TouchableOpacity {...props} style={[config.style.btnLg, style]} disabled={props.isSpinner}>
+    <TouchableOpacity {...props} style={[config.style.btnLg, style,props.style]} disabled={props.isSpinner}>
       {props.isSpinner ? (
         <ActivityIndicator size={'large'} color={'white'} />
       ) : (

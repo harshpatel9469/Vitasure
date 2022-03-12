@@ -25,10 +25,16 @@ export const session = {
   effects: (dispatch) => ({
     authenticate: async (data) => {
       try {
+        console.log("data",data);
         const response = await apiService.login(data);
         if (response.data) {
+          console.log(response.data);
           dispatch.session.setUser(response.data);
           dispatch.session.setToken(response.data?.token);
+          const response1 = await apiService.getProfile(response.data?.token);
+          if (response1.data) {
+            dispatch.session.setUserProfile(response1.data);
+          }
         }
       } catch (e) {
         dispatch.alerts.raiseError({
