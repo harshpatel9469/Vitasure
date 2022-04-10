@@ -7,7 +7,7 @@
  */
  import 'react-native-gesture-handler';
  import * as React from 'react';
- import { LogBox, Platform } from 'react-native';
+ import { LogBox, Platform ,Statusbar} from 'react-native';
  import { NavigationContainer } from '@react-navigation/native';
  import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
  import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
@@ -73,6 +73,7 @@ import Toast from "react-native-toast-message";
   }, [alerts, alertsProcessed]);
    return (
      <NavigationContainer>
+     
        <Stack.Navigator screenOptions={{
          headerShown: false,
          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS

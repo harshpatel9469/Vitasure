@@ -8,6 +8,7 @@ import {
   Image,
   Text,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import style from '../../style';
 import {
@@ -34,6 +35,7 @@ const {width} = Dimensions.get('window');
 import {scale} from 'react-native-size-matters';
 import ProductGridItem from '../reuse/ProductGridItem';
 import {useDispatch, useSelector} from 'react-redux';
+import {Colors} from '../Constant';
 const CityPlaceHolder = {
   label: 'Select item',
   value: null,
@@ -66,6 +68,10 @@ export default function CategoryListing(props) {
       discount: 'flat 45% discount',
     },
   ]);
+  const isLoading = useSelector(
+    (state) => state.loading.effects.product.getProducts,
+  );
+  console.log(isLoading);
   const allProducts = useSelector((state) => state.product.allProducts);
   // console.log(JSON.stringify(allProducts));
   const _keyCategoryExtractor = (item, index) => item.id;
@@ -86,7 +92,7 @@ export default function CategoryListing(props) {
       addToCart={addToCart}
       item={item}
       cartInProgressItems={props.cartInProgressItems}
-      showMessage={true} 
+      showMessage={true}
       showCartBtn={true}
       style={{maxWidth: width / 3, flex: 0.33}}
       layout={2}
@@ -166,7 +172,6 @@ export default function CategoryListing(props) {
             }}
             activeOpacity={0}>
             <Text style={{color: '#fff', fontSize: 13, fontWeight: 'bold'}}>
-              {' '}
               {'Start Collection'}
             </Text>
             <EntypoIcon
@@ -176,6 +181,7 @@ export default function CategoryListing(props) {
           </TouchableOpacity>
         </View>
         <Space />
+
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
             style={{
@@ -191,6 +197,7 @@ export default function CategoryListing(props) {
                   item={item}
                   image={item.image}
                   Name={item.name}
+                  key={index}
                   style={{marginVertical: 3, marginHorizontal: 5}}
                 />
               );
@@ -199,15 +206,27 @@ export default function CategoryListing(props) {
         </ScrollView>
         <Space />
         <H4>Featured Items</H4>
-        {/* {allProducts?.length ? ( */} 
+        {/* {allProducts?.length ? ( */}
+        {isLoading ? (
+          <View
+            style={{
+              height: scale(180),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <ActivityIndicator color={Colors.primary} size={'large'} />
+          </View>
+        ) : (
           <Carousel
-            data={allProducts?allProducts:[]}
+            data={allProducts ? allProducts : []}
             renderItem={_renderItem}
             sliderWidth={width - 30}
             itemWidth={(width - 30) * 0.33}
-          /> 
+          />
+        )}
         {/* ) : null} */}
         <Space />
+
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={{flexDirection: 'row'}}>
             {plantDetails.map((item, index) => {
@@ -268,6 +287,7 @@ export default function CategoryListing(props) {
             })}
           </View>
         </ScrollView>
+
         <Space />
         {/* 
         {

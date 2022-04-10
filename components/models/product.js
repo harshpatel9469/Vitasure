@@ -18,8 +18,7 @@ export const product = {
   effects: (dispatch) => ({
     getProducts: async () => {
       try {
-        const response = await apiService.getProduct();
-        console.log('res', response.data?.length);
+        const response = await apiService.getProduct(); 
         if (response.data) {
           dispatch.product.setProduct(response.data);
         }
@@ -33,8 +32,7 @@ export const product = {
     },
     getProductById: async (id) => {
       try {
-        const response = await apiService.getProductById(id);
-        console.log('res', response.data?.length);
+        const response = await apiService.getProductById(id); 
         if (response.data) {
           dispatch.product.setProductDetails(response.data);
         }
