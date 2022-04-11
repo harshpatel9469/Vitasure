@@ -34,9 +34,11 @@ const CityPlaceHolder = {
   color: 'gray',
 };
 const Register = (props) => {
-  const [userName, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPwd, setConfirmPwd] = useState('');
   const [secureEntry, setSecureEntry] = useState(true);
   const [isSave, setIsSet] = useState(false);
 
@@ -47,9 +49,9 @@ const Register = (props) => {
   const registerRes = useSelector((state) => state.session.registerRes); 
   const register = () => {
     setIsSet(true);
-    if (userName != '' && password != '' && email != '') {
+    if (firstName != '' && password != '' && email != '' && lastName != '' && confirmPwd != '') {
       setIsSet(false);
-      dispatch.session.signUp({username: userName, password: password,email:email});
+      dispatch.session.signUp({first_name: firstName,last_name:lastName, password: password,email:email});
     }
   };
   useEffect(() => {
@@ -90,7 +92,7 @@ console.log(registerRes);
               </View>
               <View>
                 <Text style={[config.style.labelText, {color: 'black'}]}>
-                  {'Username'}
+                  {'First Name'}
                 </Text>
               </View>
             </View>
@@ -104,10 +106,10 @@ console.log(registerRes);
                 borderRadius: 6,
               }}>
               <TextInput
-                placeholder="Enter The Username"
+                placeholder="Enter The First Name"
                 placeholderTextColor={'gray'}
-                onChangeText={(text) => setUsername(text)}
-                value={userName}
+                onChangeText={(text) => setFirstName(text)}
+                value={firstName}
                 style={[
                   {
                     height: 42,
@@ -119,9 +121,56 @@ console.log(registerRes);
                   },
                 ]}/>
             </View>
-            {isSave && userName == '' ? (
+            {isSave && firstName == '' ? (
               <Text style={{color: 'red', fontSize: scale(13)}}>
-                Please enter username
+                Please enter first name
+              </Text>
+            ) : null}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'column',
+              ustifyContent: 'space-between',
+              paddingVertical: responsiveHeight(1.5),
+            }}>
+            <View style={config.style.labelWrapper}>
+              <View style={config.style.labelIconWrapper}>
+                <Icon name={'user'} color={config.primaryColor} size={15} />
+              </View>
+              <View>
+                <Text style={[config.style.labelText, {color: 'black'}]}>
+                  {'Last Name'}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                borderWidth: 1,
+                marginTop: 5,
+                borderColor: '#c6c6c6',
+                borderRadius: 6,
+              }}>
+              <TextInput
+                placeholder="Enter The Last Name"
+                placeholderTextColor={'gray'}
+                onChangeText={(text) => setLastName(text)}
+                value={lastName}
+                style={[
+                  {
+                    height: 42,
+                    width: '100%',
+                    margin: responsiveWidth(0),
+                    paddingHorizontal: scale(17),
+                    marginVertical: responsiveHeight(0),
+                    borderBottomColor: '#c6c6c6',
+                  },
+                ]}/>
+            </View>
+            {isSave && lastName == '' ? (
+              <Text style={{color: 'red', fontSize: scale(13)}}>
+                Please enter last name
               </Text>
             ) : null}
           </TouchableOpacity>
@@ -229,6 +278,66 @@ console.log(registerRes);
             {isSave && password == '' ? (
               <Text style={{color: 'red', fontSize: scale(13)}}>
                 Please enter password
+              </Text>
+            ) : null}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              flexDirection: 'column',
+              ustifyContent: 'space-between',
+              paddingVertical: responsiveHeight(1.5),
+            }}>
+            <View style={config.style.labelWrapper}>
+              <View style={config.style.labelIconWrapper}>
+                <Icon name={'lock'} color={config.primaryColor} size={15} />
+              </View>
+              <View>
+                <Text style={[config.style.labelText, {color: 'black'}]}>
+                  {'Confirm Password'}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                borderWidth: 1,
+                marginTop: 5,
+                borderColor: '#c6c6c6',
+                borderRadius: 6,
+              }}>
+              <TextInput
+                placeholder="Enter The Confirm Password"
+                placeholderTextColor={'gray'}
+                secureTextEntry={secureEntry}
+                onChangeText={(text) => setConfirmPwd(text)}
+                value={confirmPwd}
+                style={[
+                  {
+                    height: 42,
+                    width: '100%',
+                    margin: responsiveWidth(0),
+                    paddingHorizontal: scale(17),
+                    marginVertical: responsiveHeight(0),
+                    borderBottomColor: '#c6c6c6',
+                  },
+                ]}></TextInput>
+              <TouchableOpacity
+                onPress={() => {
+                  setSecureEntry(!secureEntry);
+                }}
+                style={{position: 'absolute', right: 23, bottom: 7}}>
+                <Icon
+                  name={secureEntry ? 'eye-off' : 'eye'}
+                  size={18}
+                  color={'#bcbcbc'}
+                />
+              </TouchableOpacity>
+            </View>
+            {isSave && password == '' ? (
+              <Text style={{color: 'red', fontSize: scale(13)}}>
+                Please enter confirm password
               </Text>
             ) : null}
           </TouchableOpacity>

@@ -62,7 +62,7 @@ const EditProfile = (props) => {
     if (user?.token) {
       dispatch.session.getProfile(user.token);
     }
-  });
+  },[]);
   const onOpenCamera = () => {
     ImagePicker.openCamera({
       width: 300,
@@ -204,7 +204,7 @@ const EditProfile = (props) => {
                   paddingVertical: responsiveHeight(1.5),
                 }}>
                 <View style={{flex: 1, justifyContent: 'center'}}>
-                  <Text style={[cstyle.boldFont, cstyle.H7Text]}>Username</Text>
+                  <Text style={[cstyle.boldFont, cstyle.H7Text]}>Name</Text>
                 </View>
                 <View
                   style={{

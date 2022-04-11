@@ -69,15 +69,25 @@ export default function Home(props) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeSlide1, setActiveSlide1] = useState(0);
   const [search, setSearch] = useState('');
+  // const [personCategory, setPersonCategory] = useState([
+  //   {id: 1, name: 'Him', image: require('../../assets/img/men-1.png')},
+  //   {id: 2, name: 'Her', image: require('../../assets/img/female.png')},
+  //   {
+  //     id: 3,
+  //     name: 'Newly Wed',
+  //     image: require('../../assets/img/newly-weds.png'),
+  //   },
+  //   {id: 4, name: 'Kids', image: require('../../assets/img/children.png')},
+  // ]);
   const [personCategory, setPersonCategory] = useState([
-    {id: 1, name: 'Him', image: require('../../assets/img/men-1.png')},
-    {id: 2, name: 'Her', image: require('../../assets/img/female.png')},
+    {id: 1, name: 'Sexual Health Wellness', image: require('../../assets/img/Sexual-Health-1.png')},
+    {id: 2, name: 'Pre-conception care', image: require('../../assets/img/Pre-conception-care.png')},
     {
       id: 3,
-      name: 'Newly Wed',
-      image: require('../../assets/img/newly-weds.png'),
+      name: 'Athletic',
+      image: require('../../assets/img/athelitic.png'),
     },
-    {id: 4, name: 'Kids', image: require('../../assets/img/children.png')},
+    
   ]);
   const [plantDetails, setPlantDetails] = useState([
     {

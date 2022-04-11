@@ -15,22 +15,20 @@ export const PersonCard = (props) => {
       style={[
         {
           width: scale(100),
-          height: scale(100),
-          backgroundColor:
-            props.Name == 'Him' || props.Name == 'Newly Wed'
-              ? '#005266'
-              : '#e4048d',
+          minHeight: scale(120),
+         
           justifyContent: 'center',
           alignItems: 'center',
           borderRadius: scale(100),
+         
         },
         props.style,
       ]}>
       <Image
         source={props.image}
         style={{
-          width: scale(80),
-          height: scale(80),
+          width: scale(100),
+          height: scale(100),
           padding: scale(15),
           resizeMode: 'cover',
         }}
@@ -40,11 +38,12 @@ export const PersonCard = (props) => {
       <Text
         style={{
           fontSize: scale(13),
-          marginTop: props.Name == 'Newly Wed' ? scale(-20) : scale(-13),
+         // marginTop:scale(-13),
           fontWeight: 'bold',
-          color: '#fefefe',
+          color: 'black',
           textAlign: 'center',
-          width: scale(50),
+          width: scale(100),
+        
         }}>
         {props.Name}
       </Text>
