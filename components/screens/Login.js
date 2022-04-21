@@ -37,7 +37,7 @@ const Login = (props) => {
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [secureEntry, setSecureEntry] = useState(true);
-  const [isSave, setIsSet] = useState(false);
+  const [isSave, setIsSave] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(
     (state) => state.loading.effects.session.authenticate,
@@ -45,9 +45,9 @@ const Login = (props) => {
   const user = useSelector((state) => state.session.user);
   console.log(isLoading);
   const login = () => {
-    setIsSet(true);
+    setIsSave(true);
     if (userName != '' && password != '') {
-      setIsSet(false);
+      setIsSave(false);
       dispatch.session.authenticate({username: userName, password: password});
     }
   };

@@ -196,6 +196,17 @@ export default function Settings(props) {
               <P style={{marginBottom: 0}}>Login</P>
             </ListItem>
 
+            <ListItem
+              icon={
+                <Icon
+                  name={global.nextIcon}
+                  color={config.defaultFontColor}
+                  size={18}
+                />
+              }
+              onPress={() => props.navigation.navigate('ContactUs')}>
+              <P style={{marginBottom: 0}}>Contact Us</P>
+            </ListItem>
             <Space />
 
             <Btn

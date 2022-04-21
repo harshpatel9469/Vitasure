@@ -38,7 +38,8 @@
  import VatalityTips from './screens/VatalityTips';
  
 import { useSelector } from "react-redux";
-import Toast from "react-native-toast-message";
+import Toast from "react-native-toast-message"; 
+import ContactUs from './screens/ContactUs';
  global.debugMode = false;
  global.backIcon = Platform.OS == 'ios' ? 'chevron-left' : 'arrow-left';
  global.nextIcon = Platform.OS == 'ios' ? 'chevron-right' : 'arrow-right';
@@ -81,6 +82,7 @@ import Toast from "react-native-toast-message";
          <Stack.Screen name="Splash" component={Splash} />
          <Stack.Screen name="Home" component={Tabs} />
          <Stack.Screen name="Login" component={Login} />
+         <Stack.Screen name="ContactUs" component={ContactUs} />
          <Stack.Screen name="Settings" component={Settings} />
          <Stack.Screen name="Register" component={Register} />
          <Stack.Screen name="Shop" component={CategoryListing} />
