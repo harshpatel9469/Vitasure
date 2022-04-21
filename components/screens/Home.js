@@ -13,7 +13,7 @@ import {
   Alert,
   StatusBar,
 } from 'react-native';
-
+import FlipCard from "react-native-flip-card";
 import ProductGridItem from '../reuse/ProductGridItem';
 import Icon from 'react-native-vector-icons/dist/SimpleLineIcons';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -39,12 +39,42 @@ import {
 import {scale} from 'react-native-size-matters';
 
 const {width} = Dimensions.get('window');
-const stylesnew = StyleSheet.create({
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: "#eb6199",
+    borderRadius: 10,
+    padding: 10,
+    height: scale(200),
+    marginTop: 10,
+  },
+  profileCard: {
+    height: 200,
+    alignItems: "center",
+    marginTop: 20,
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
+  },
+  notificationBox: {
+    padding:20,
+    marginTop:5,
+    marginBottom:5,
+    backgroundColor: '#FFFFFF',
+    // flexDirection: 'row',
+    borderRadius:10,
+  },
+  icon:{
+    width:45,
+    height:45,
+  },
+  description:{
+    fontSize:18,
+    color: "#3498db",
+    marginLeft:10,
+    textAlign:'justify'
   },
   modalView: {
     margin: 20,
@@ -86,6 +116,16 @@ export default function Home(props) {
       id: 3,
       name: 'Athletic',
       image: require('../../assets/img/athelitic.png'),
+    },
+    
+  ]);
+  const [ourProducts, setOurProducts] = useState([
+    {id: 1, name: '30 Day Supply Packs', description:'Our products are designed with an adequate number of servings to allow consumption for up to 30 days'},
+    {id: 2, name: 'Premium Quality', description: 'Our products are carefully formulated to provide you with premium quality to supplement your health and vitality'},
+    {
+      id: 3,
+      name: 'International',
+      description:'Our products are brought to your doorstep from across the globe under the technical guidance of VITASURE LIFE LIMITED (UK)',
     },
     
   ]);
@@ -190,6 +230,19 @@ export default function Home(props) {
       </TouchableOpacity>
     );
   };
+
+  const _renderOurProductItem = ({item, index}) => {
+    return (
+      <TouchableOpacity style={config.style.cardShadow}>
+      <View style={styles.notificationBox}>
+                
+                <Text style={{fontSize:18,color:'black',textAlign:'center',fontWeight:'600'}}>{item.name}</Text>
+                <Text style={[styles.description,{textAlign:'center',color:'gray'}]}>{item.description}</Text>
+              </View>
+      </TouchableOpacity>
+    );
+  };
+  
 
   return (
     <Wrapper>
@@ -322,13 +375,14 @@ export default function Home(props) {
           />
         </View>
         <Space />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal={true} scrollEnabled showsHorizontalScrollIndicator={false}>
+        <View style={{flexDirection: 'row'}}>
           <View
             style={{
-              width: '100%',
-              justifyContent: 'space-evenly',
-              alignItems: 'center',
-              flexDirection: 'row',
+              // width: '100%',
+              // justifyContent: 'space-evenly',
+              // alignItems: 'center',
+               flexDirection: 'row',
               flexWrap: 'wrap',
             }}>
             {personCategory.map((item, index) => {
@@ -343,7 +397,137 @@ export default function Home(props) {
               );
             })}
           </View>
+          </View>
         </ScrollView>
+        <Space />
+        {/* <H4>Featured products</H4> */}
+        
+        <View style={{justifyContent:'center'}}>
+          <Text style={{textAlign:'center',fontSize:scale(20),fontWeight:'650'}}>Our Products</Text>
+        </View>
+        <Space />
+        <View style={{flexDirection:'row'}}>
+         
+<ScrollView horizontal={true}>
+<FlipCard
+          style={styles.card}
+          friction={6}
+          perspective={1000}
+          flipHorizontal={false}
+          flipVertical={true}
+          flip={false}
+          clickable={true}
+          onFlipEnd={(isFlipEnd) => {
+            console.log("isFlipEnd", isFlipEnd);
+          }}
+        >
+           
+         
+          <View style={[config.style.cardShadow,{borderWidth:0,borderColor:'blue'}]}>
+    
+      <Image
+            source={require('../../assets/img/ourProduct1.jpg')}
+            style={{
+              height: scale(180),
+              width: scale(310),
+              borderRadius: 10,
+              resizeMode: 'cover',
+            }}
+          />
+               
+      </View>
+      
+
+         
+          <View style={config.style.cardShadow}>
+          <View style={[styles.notificationBox,{borderWidth:0,height:scale(180), width: scale(310),}]}>
+                
+      <Text style={{fontSize:18,color:'black',textAlign:'center',fontWeight:'600'}}>{"30 Day Supply"}</Text>
+                <Text style={[styles.description,{textAlign:'center',color:'gray'}]}>{"Our products are designed with an adequate number of servings to allow consumption for up to 30 days"}</Text>
+              </View>
+      </View>
+        </FlipCard>
+        <View style={{paddingHorizontal:5}}></View>
+        <FlipCard
+          style={styles.card}
+          friction={6}
+          perspective={1000}
+          flipHorizontal={false}
+          flipVertical={true}
+          flip={false}
+          clickable={true}
+          onFlipEnd={(isFlipEnd) => {
+            console.log("isFlipEnd", isFlipEnd);
+          }}
+        >
+           
+         
+          <View style={[config.style.cardShadow,{borderWidth:0,borderColor:'blue'}]}>
+    
+      <Image
+            source={require('../../assets/img/ourProduct2.jpg')}
+            style={{
+              height: scale(180),
+              width: scale(310),
+              borderRadius: 10,
+              resizeMode: 'cover',
+            }}
+          />
+               
+      </View>
+      
+
+         
+          <View style={config.style.cardShadow}>
+      <View style={[styles.notificationBox,{borderWidth:0,height:scale(180), width: scale(310),}]}>
+                
+      <Text style={{fontSize:18,color:'black',textAlign:'center',fontWeight:'600'}}>{"Premium Quality"}</Text>
+                <Text style={[styles.description,{textAlign:'center',color:'gray',flexWrap:'wrap'}]}>{"Our products are carefully formulated to provide you with premium quality to supplement your health and vitality"}</Text>
+              </View>
+      </View>
+        </FlipCard>
+        <View style={{paddingHorizontal:5}}></View>
+        <FlipCard
+          style={styles.card}
+          friction={6}
+          perspective={1000}
+          flipHorizontal={false}
+          flipVertical={true}
+          flip={false}
+          clickable={true}
+          onFlipEnd={(isFlipEnd) => {
+            console.log("isFlipEnd", isFlipEnd);
+          }}
+        >
+           
+         
+          <View style={[config.style.cardShadow,{borderWidth:0,borderColor:'blue'}]}>
+    
+      <Image
+            source={require('../../assets/img/ourProduct3.jpg')}
+            style={{
+              height: scale(180),
+              width: scale(310),
+              borderRadius: 10,
+              resizeMode: 'cover',
+            }}
+          />
+               
+      </View>
+      
+
+         
+          <View style={config.style.cardShadow}>
+      <View style={[styles.notificationBox,{borderWidth:0,height:scale(180), width: scale(310),}]}>
+                
+      <Text style={{fontSize:18,color:'black',textAlign:'center',fontWeight:'600'}}>{"International"}</Text>
+                <Text style={[styles.description,{textAlign:'center',color:'gray',flexWrap:'wrap'}]}>{"Our products are brought to your doorstep from across the globe under the technical guidance of VITASURE LIFE LIMITED (UK)"}</Text>
+              </View>
+      </View>
+        </FlipCard>
+
+        </ScrollView>
+        </View>
         {/* <FlatList
           contentContainerStyle={{marginHorizontal: -5}}
           data={sample_data.brands}
